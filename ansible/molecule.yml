@@ -1,0 +1,34 @@
+---
+molecule:
+  molecule_dir: environments/hnode
+  test:
+    sequence:
+      - destroy
+      - create
+      - converge
+      - destroy
+  vagrantfile_template: vagrantfile.j2
+ansible:
+    config_file: ansible.cfg
+    playbook: site.yml
+vagrant:
+  raw_config_args:
+    - "ssh.insert_key = false"
+  platforms:
+    - name: xenial64
+      box: parallels/ubuntu-16.04
+    
+  providers:
+    - name: parallels
+      type: parallels
+      options:
+        memory: 4096
+        cpus: 2
+  instances:
+    - name: common
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
+      options:
+        append_platform_to_hostname: no
