@@ -1,1 +1,2 @@
-common ansible_host=192.168.52.116 ansible_port=22 ansible_ssh_private_key_file="/Users/serj/.vagrant.d/insecure_private_key" ansible_user=vagrant
+node1 ansible_host=192.168.52.119 ansible_port=22 ansible_ssh_private_key_file="/Users/serj/.vagrant.d/insecure_private_key" ansible_user=vagrant
+node2 ansible_host=192.168.52.118 ansible_port=22 ansible_ssh_private_key_file="/Users/serj/.vagrant.d/insecure_private_key" ansible_user=vagrant

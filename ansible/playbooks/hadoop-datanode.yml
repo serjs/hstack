@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+
+  - name: hadoop-datanode
+    docker_container:
+      name: hadoop-datanode
+      image: express42/hadoop-datanode
+      network_mode: host
+
+      restart: yes
+      recreate: yes
+      restart_policy: on-failure
+      volumes:
+        - /mnt/hadoop-datanode:/hadoop/dfs/name
+      env:
+        CLUSTER_NAME: e42cluster
+      env_file: /etc/hadoop.env

@@ -17,3 +17,13 @@
       name: docker-ce=17.03.1~ce-0~ubuntu-xenial
       state: present
       update_cache: yes
+
+  - name: Install pip package
+    apt:
+      name: python-setuptools
+      state: present
+      update_cache: yes
+
+  - name: Install docker-py pip package
+    easy_install:
+      name: docker-py

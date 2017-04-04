@@ -1,4 +1,8 @@
 ---
 - hosts: all
-  roles:
-    - default_packages
+  tasks:
+
+  - name: Setup docker repository key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present

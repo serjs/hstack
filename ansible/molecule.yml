@@ -17,15 +17,24 @@ vagrant:
   platforms:
     - name: xenial64
       box: parallels/ubuntu-16.04
-    
+
   providers:
     - name: parallels
       type: parallels
       options:
         memory: 4096
         cpus: 2
+
   instances:
-    - name: common
+    - name: node1
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
+      options:
+        append_platform_to_hostname: no
+
+    - name: node2
       interfaces:
         - network_name: private_network
           type: dhcp

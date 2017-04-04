@@ -12,10 +12,18 @@ driver_config:
     - auto_config: true
       network_name: private_network
       type: dhcp
-    name: common
+    name: node1
     options:
       append_platform_to_hostname: false
-    vm_name: common
+    vm_name: node1
+  - interfaces:
+    - auto_config: true
+      network_name: private_network
+      type: dhcp
+    name: node2
+    options:
+      append_platform_to_hostname: false
+    vm_name: node2
   platforms:
   - box: parallels/ubuntu-16.04
     name: xenial64
@@ -28,6 +36,8 @@ driver_config:
   raw_config_args:
   - ssh.insert_key = false
 hosts:
-  common:
+  node1:
+    groups: []
+  node2:
     groups: []
 multiple_platforms: null
