@@ -2,16 +2,30 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-namenode
+  - name: hadoop-namenode-active
     docker_container:
       name: hadoop-namenode
       image: express42/hadoop-namenode
       network_mode: host
-      restart: yes
-      recreate: yes
+      restart: no
+      pull: true
       restart_policy: on-failure
       volumes:
-        - /mnt/hadoop_namenode:/hadoop/dfs/name
-      env:
-        CLUSTER_NAME: e42cluster
+        - /mnt/hadoop-namenode:/hadoop/dfs/name
       env_file: /etc/hadoop.env
+    when: journal_node_active
+
+  - name: hadoop-namenode-standby
+    docker_container:
+      name: hadoop-namenode
+      image: express42/hadoop-namenode
+      network_mode: host
+      restart: no
+      pull: true
+      restart_policy: on-failure
+      volumes:
+        - /mnt/hadoop-namenode:/hadoop/dfs/name
+      env:
+        NN_STANDBY=true
+      env_file: /etc/hadoop.env
+    when: journal_node_standby

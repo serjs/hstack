@@ -2,14 +2,13 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-datanode
+  - name: hadoop-zkfc
     docker_container:
-      name: hadoop-datanode
-      image: express42/hadoop-datanode
+      name: hadoop-zkfc
+      image: express42/hadoop-zkfc
       network_mode: host
       restart: no
       pull: true
       #restart_policy: on-failure
-      volumes:
-        - /mnt/hadoop-data:/hadoop/dfs/data
       env_file: /etc/hadoop.env
+    when: journal_node_active or journal_node_standby

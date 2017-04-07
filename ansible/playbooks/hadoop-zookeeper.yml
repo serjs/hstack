@@ -1,0 +1,18 @@
+---
+- hosts: all
+  vars:
+    start_id: 0
+  tasks:
+
+  - name: hadoop-zookeeper
+    docker_container:
+      name: hadoop-zookeeper
+      image: zookeeper
+      network_mode: host
+      restart: yes
+      restart_policy: on-failure
+      volumes:
+        - /mnt/hadoop-zookeeper:/data
+      env:
+        ZOO_MY_ID: "{% for thishost in groups['all'] %}{% if inventory_hostname==thishost %}{{ start_id + loop.index }}{% endif %}{% endfor %}"
+        ZOO_SERVERS: server.1=node1:2888:3888 server.2=node2:2888:3888 server.3=node3:2888:3888

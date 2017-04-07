@@ -11,6 +11,16 @@ molecule:
 ansible:
     config_file: ansible.cfg
     playbook: site.yml
+    host_vars:
+      node1:
+        journal_node_active: true
+        journal_node_standby: false
+      node2:
+        journal_node_active: false
+        journal_node_standby: true
+      node3:
+        journal_node_active: false
+        journal_node_standby: false
 vagrant:
   raw_config_args:
     - "ssh.insert_key = false"
@@ -22,7 +32,7 @@ vagrant:
     - name: parallels
       type: parallels
       options:
-        memory: 4096
+        memory: 1024
         cpus: 2
 
   instances:
@@ -35,6 +45,14 @@ vagrant:
         append_platform_to_hostname: no
 
     - name: node2
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
+      options:
+        append_platform_to_hostname: no
+
+    - name: node3
       interfaces:
         - network_name: private_network
           type: dhcp

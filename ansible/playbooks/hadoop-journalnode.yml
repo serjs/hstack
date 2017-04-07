@@ -2,14 +2,15 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-datanode
+  - name: hadoop-journalnode
     docker_container:
-      name: hadoop-datanode
-      image: express42/hadoop-datanode
+      name: hadoop-journalnode
+      image: express42/hadoop-journalnode
       network_mode: host
       restart: no
       pull: true
-      #restart_policy: on-failure
+      restart_policy: on-failure
       volumes:
+        - /mnt/hadoop-journal:/hadoop/dfs/journal
         - /mnt/hadoop-data:/hadoop/dfs/data
       env_file: /etc/hadoop.env
