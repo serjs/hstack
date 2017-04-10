@@ -1,6 +1,6 @@
 ---
 molecule:
-  molecule_dir: environments/hnode
+  molecule_dir: environments/molecule
   test:
     sequence:
       - destroy
