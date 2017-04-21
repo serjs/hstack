@@ -9,7 +9,7 @@
       name: hadoop-zookeeper
       image: zookeeper
       network_mode: host
-      restart: yes
+      #restart: yes
       restart_policy: on-failure
       volumes:
         - /mnt/hadoop-zookeeper:/data

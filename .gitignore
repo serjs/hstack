@@ -2,8 +2,4 @@ site.retry
 vault.key
 .vagrant
 .imported_roles
-ansible/environments/molecule/ansible.cfg
-ansible/environments/molecule/rakefile
-ansible/environments/molecule/vagrantfile
-ansible/environments/molecule/state
-ansible/environments/molecule/ansible_inventory
+ansible/environments/molecule

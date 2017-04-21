@@ -2,3 +2,4 @@
 #- include: playbooks/common.yml
 - include: playbooks/docker.yml
 - include: playbooks/hadoop.yml
+- include: playbooks/mesos.yml

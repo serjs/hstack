@@ -1,0 +1,22 @@
+---
+- hosts: all
+  tasks:
+  - name: "Mesos: create configuration env file"
+    copy:
+      dest: /etc/mesos.env
+      content: |
+        # Master
+        MESOS_PORT=5050
+        MESOS_SWITCH_USER=0
+        MESOS_ZK=zk://node1:2181,node2:2181,node3:2181/mesos
+        MESOS_QUORUM=1
+        MESOS_REGISTRY=in_memory
+        MESOS_LOG_DIR=/var/log/mesos
+        MESOS_WORK_DIR=/var/tmp/mesos
+        # Slave
+        MESOS_SWITCH_USER=0
+        MESOS_MASTER=zk://node1:2181,node2:2181,node3:2181/mesos
+        MESOS_SWITCH_USER=0
+        MESOS_CONTAINERIZERS=docker,mesos
+- include: mesos-master.yml
+- include: mesos-slave.yml

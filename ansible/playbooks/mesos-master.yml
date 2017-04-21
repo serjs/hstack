@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+
+  - name: "Docker Mesos: Setup mesos-master"
+    docker_container:
+      name: mesos-master
+      image: mesosphere/mesos-master:1.2.0
+      network_mode: host
+      #restart: yes
+      pull: true
+      #restart_policy: on-failure
+      env_file: /etc/mesos.env
+      volumes:
+        - /mnt/mesos-master-logs:/var/log/mesos
+        - /mnt/mesos-master-tmp:/var/tmp/mesos
+    when: mesos_node_master

@@ -13,12 +13,18 @@ ansible:
     playbook: site.yml
     host_vars:
       node1:
+        mesos_node_master: true
+        mesos_node_slave: true
         journal_node_active: true
         journal_node_standby: false
       node2:
+        mesos_node_master: false
+        mesos_node_slave: true
         journal_node_active: false
         journal_node_standby: true
       node3:
+        mesos_node_master: false
+        mesos_node_slave: true
         journal_node_active: false
         journal_node_standby: false
 vagrant:

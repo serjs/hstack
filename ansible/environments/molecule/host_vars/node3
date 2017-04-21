@@ -1,3 +1,5 @@
 ---
 journal_node_active: false
 journal_node_standby: false
+mesos_node_master: false
+mesos_node_slave: true

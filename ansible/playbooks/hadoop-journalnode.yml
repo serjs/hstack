@@ -7,7 +7,7 @@
       name: hadoop-journalnode
       image: express42/hadoop-journalnode
       network_mode: host
-      restart: yes
+      #restart: yes
       pull: true
       restart_policy: on-failure
       volumes:

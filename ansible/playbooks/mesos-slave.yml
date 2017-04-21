@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+
+  - name: "Docker Mesos: Setup mesos-slave"
+    docker_container:
+      name: mesos-slave
+      image: mesosphere/mesos-slave:1.2.0
+      network_mode: host
+      #restart: yes
+      pull: true
+      #restart_policy: on-failure
+      env:
+        MESOS_PORT=5051
+      env_file: /etc/mesos.env
+      volumes:
+        - /mnt/mesos-slave-logs:/var/log/mesos
+        - /mnt/mesos-slave-tmp:/var/tmp/mesos
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /cgroup:/cgroup
+        - /sys:/sys
+        - /usr/bin/docker:/usr/bin/docker
+    when: mesos_node_slave
