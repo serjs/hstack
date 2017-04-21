@@ -4,7 +4,7 @@
     start_id: 0
   tasks:
 
-  - name: hadoop-zookeeper
+  - name: "Docker Hadoop: Setup hadoop-zookeeper"
     docker_container:
       name: hadoop-zookeeper
       image: zookeeper

@@ -2,12 +2,12 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-namenode-active
+  - name: "Docker Hadoop: Setup hadoop-namenode-active"
     docker_container:
       name: hadoop-namenode
       image: express42/hadoop-namenode
       network_mode: host
-      restart: no
+      restart: yes
       pull: true
       restart_policy: on-failure
       volumes:

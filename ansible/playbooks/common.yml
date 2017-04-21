@@ -2,7 +2,17 @@
 - hosts: all
   tasks:
 
-  - name: Setup docker repository key
+  - name: "System: Setup docker repository key"
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
+
+  - name: "System: Install pip package"
+    apt:
+      name: python-setuptools
+      state: present
+      update_cache: yes
+
+  - name: "System: Install docker-py pip package"
+    easy_install:
+      name: docker-py

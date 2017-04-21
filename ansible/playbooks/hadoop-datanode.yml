@@ -2,12 +2,12 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-datanode
+  - name: "Docker Hadoop: Setup hadoop-datanode"
     docker_container:
       name: hadoop-datanode
       image: express42/hadoop-datanode
       network_mode: host
-      restart: no
+      restart: yes
       pull: true
       #restart_policy: on-failure
       volumes:

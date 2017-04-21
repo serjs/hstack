@@ -2,12 +2,12 @@
 - hosts: all
   tasks:
 
-  - name: hadoop-journalnode
+  - name: "Docker Hadoop: Setup hadoop-journalnode"
     docker_container:
       name: hadoop-journalnode
       image: express42/hadoop-journalnode
       network_mode: host
-      restart: no
+      restart: yes
       pull: true
       restart_policy: on-failure
       volumes:
