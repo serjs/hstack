@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+
+  - name: "Docker Marathon: Setup marathon instance"
+    docker_container:
+      name: mesos-marathon
+      image: mesosphere/marathon:v1.4.2
+      network_mode: host
+      exposed_ports:
+        - 8080
+      #restart: yes
+      pull: true
+      #restart_policy: on-failure
+      command:
+        [ "--master zk://node1:2181,node2:2181,node3:2181/mesos", "--zk zk://node1:2181,node2:2181,node3:2181/marathon" ]

@@ -3,3 +3,4 @@
 - include: playbooks/docker.yml
 - include: playbooks/hadoop.yml
 - include: playbooks/mesos.yml
+- include: playbooks/marathon.yml
