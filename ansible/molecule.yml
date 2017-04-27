@@ -48,26 +48,14 @@ vagrant:
 
   instances:
     - name: node1
-      ansible_groups:
-        - hadoop
-        - mesos
-        - monitor
-        - platform:children:
-          - hadoop
-          - mesos
-          - monitor
       interfaces:
         - network_name: private_network
           type: dhcp
           auto_config: true
       options:
-
         append_platform_to_hostname: no
 
     - name: node2
-      ansible_groups:
-      - hadoop
-      - mesos
       interfaces:
         - network_name: private_network
           type: dhcp
@@ -76,9 +64,6 @@ vagrant:
         append_platform_to_hostname: no
 
     - name: node3
-      ansible_groups:
-      - hadoop
-      - mesos
       interfaces:
         - network_name: private_network
           type: dhcp
