@@ -1,0 +1,5 @@
+---
+- include: node_exporter.yml
+- include: cadvisor.yml
+- include: prometheus.yml
+- include: grafana.yml

@@ -1,0 +1,36 @@
+- name: "Docker Prometheus: Create prometheus config folder"
+  when: monitor is defined and monitor
+  file:
+    path: /srv/docker/prometheus/{{item}}
+    state: directory
+    recurse: yes
+  with_items:
+    - etc/sd_files
+
+- name: "Docker Prometheus: Add prometheus config"
+  when: monitor is defined and monitor
+  template:
+    src: prometheus.yml.j2
+    dest: /srv/docker/prometheus/etc/prometheus.yml
+
+- name: "Docker Prometheus: Add files for service discovery"
+  when: monitor is defined and monitor
+  template:
+    src: sd_config.yml.j2
+    dest: /srv/docker/prometheus/etc/sd_files/{{item}}.yml
+  with_items: "{{ groups.all }}"
+
+- name: "Docker Prometheus: Setup prometheus"
+  when: monitor is defined and monitor
+  docker_container:
+    name: monitor-promethe
+    image: prom/prometheus
+    pull: true
+    network_mode: host
+    volumes:
+      - /srv/docker/prometheus/etc:/etc/prometheus/
+      - /srv/docker/prometheus/data:/prometheus
+    command:
+      - "-config.file=/etc/prometheus/prometheus.yml"
+      - "-storage.local.path=/prometheus"
+    restart_policy: on-failure

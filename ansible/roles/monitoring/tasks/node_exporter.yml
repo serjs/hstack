@@ -1,0 +1,15 @@
+- name: "Docker node-exporter: setup node-exporter"
+  docker_container:
+    name: monitor-node-exporter
+    image: prom/node-exporter
+    pull: true
+    network_mode: host
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - /:/rootfs:ro
+    command:
+      - "-collector.procfs=/host/proc"
+      - "-collector.sysfs=/host/sysfs"
+      - "-collector.filesystem.ignored-mount-points='^/(sys|proc|dev|host|etc)($$|/)'"
+    restart_policy: on-failure

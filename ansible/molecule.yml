@@ -11,12 +11,15 @@ molecule:
 ansible:
     config_file: ansible.cfg
     playbook: site.yml
+    verbose: false
     host_vars:
       node1:
         mesos_node_master: true
         mesos_node_slave: true
         journal_node_active: true
         journal_node_standby: false
+        monitor: true
+        prometheus_file_sd_config_path: "/etc/prometheus/sd_files"
       node2:
         mesos_node_master: false
         mesos_node_slave: true
@@ -32,7 +35,7 @@ vagrant:
     - "ssh.insert_key = false"
   platforms:
     - name: xenial64
-      box: parallels/ubuntu-16.04
+      box: express42/ubuntu-16.04
 
   providers:
     - name: parallels

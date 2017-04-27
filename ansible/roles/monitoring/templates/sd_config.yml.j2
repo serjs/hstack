@@ -1,0 +1,5 @@
+- targets:
+   - {{ item }}:9100
+   - {{ item }}:8080
+  labels:
+    host: "{{ item }}" 

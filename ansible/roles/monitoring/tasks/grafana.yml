@@ -1,0 +1,65 @@
+- name: "Docker Grafana: setup grafana"
+  when: monitor is defined and monitor
+  docker_container:
+    name: monitor-grafana
+    image: grafana/grafana
+    pull: true
+    network_mode: host
+    volumes:
+      - /srv/docker/grafana/data/:/var/lib/grafana
+    restart_policy: on-failure
+
+- name:
+  when: monitor is defined and monitor
+  wait_for:
+    host: "{{inventory_hostname}}"
+    port: 3000
+    delay: 5
+
+- name: "Docker Grafana: Add prometheus data source to grafana via API"
+  when: monitor is defined and monitor
+  uri:
+    timeout: 60
+    # creates: /tmp/tcpinput.created
+    headers:
+      Content-Type: application/json
+    method: POST
+    url: "http://{{ inventory_hostname }}:3000/api/datasources"
+    force_basic_auth: yes
+    user: admin
+    password: admin
+    validate_certs: no
+    body_format: json
+    body:
+      name: prometheus
+      type: prometheus
+      url: "http://{{ ansible_ssh_host }}:9090"
+      access: proxy
+      basicAuth: false
+  register: dbg
+  changed_when: dbg.status == 200
+  failed_when: dbg.status != 200 and dbg.status != 409
+
+- name: "Docker Grafana: import grafana dashboard from template"
+  when: monitor is defined and monitor
+  uri:
+    timeout: 60
+    # creates: /tmp/tcpinput.created
+    headers:
+      Content-Type: application/json
+    method: POST
+    url: "http://{{ inventory_hostname }}:3000/api/dashboards/db"
+    force_basic_auth: yes
+    user: admin
+    password: admin
+    validate_certs: no
+    body_format: json
+    body: |
+      {
+        "dashboard":
+        {{ lookup('file', '../files/docker_dash.json', convert_data=False) }},
+        "overwrite": false
+      }
+  register: dbg
+  changed_when: dbg.status == 200
+  failed_when: dbg.status != 200 and dbg.status != 412
