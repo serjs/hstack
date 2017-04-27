@@ -1,53 +1,9 @@
 ---
-converged: true
-created: true
+converged: null
+created: null
 default_platform: null
 default_provider: null
-driver: vagrant
-driver_config:
-  current_platform: xenial64
-  current_provider: parallels
-  instances:
-  - interfaces:
-    - auto_config: true
-      network_name: private_network
-      type: dhcp
-    name: node1
-    options:
-      append_platform_to_hostname: false
-    vm_name: node1
-  - interfaces:
-    - auto_config: true
-      network_name: private_network
-      type: dhcp
-    name: node2
-    options:
-      append_platform_to_hostname: false
-    vm_name: node2
-  - interfaces:
-    - auto_config: true
-      network_name: private_network
-      type: dhcp
-    name: node3
-    options:
-      append_platform_to_hostname: false
-    vm_name: node3
-  platforms:
-  - box: parallels/ubuntu-16.04
-    name: xenial64
-  providers:
-  - name: parallels
-    options:
-      cpus: 2
-      memory: 1024
-    type: parallels
-  raw_config_args:
-  - ssh.insert_key = false
-hosts:
-  node1:
-    groups: []
-  node2:
-    groups: []
-  node3:
-    groups: []
+driver: null
+driver_config: {}
+hosts: {}
 multiple_platforms: null
