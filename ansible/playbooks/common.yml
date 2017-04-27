@@ -16,3 +16,15 @@
   - name: "System: Install docker-py pip package"
     easy_install:
       name: docker-py
+
+  - name: Update /etc/hosts from inventory
+    lineinfile: dest=/etc/hosts regexp='.*{{item}}$' line='{{hostvars[item].ansible_default_ipv4.address}} {{item}}' state=present
+    with_items: '{{ groups.all }}'
+    tags:
+      - hosts
+
+  - name: Update /etc/hosts from string
+    lineinfile: dest=/etc/hosts line='{{hostvars[item].ansible_default_ipv4.address}} express42' state=present
+    with_items: '{{ groups.all }}'
+    tags:
+      - hosts
