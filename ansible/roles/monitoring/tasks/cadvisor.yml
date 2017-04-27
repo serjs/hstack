@@ -4,6 +4,7 @@
     image: google/cadvisor
     pull: true
     network_mode: host
+    command: "--port=9080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
